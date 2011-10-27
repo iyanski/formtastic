@@ -54,7 +54,7 @@ module Formtastic
           Formtastic::Util.html_safe(full_errors.map { |error| template.content_tag(:li, Formtastic::Util.html_safe(error)) }.join)
         end
       end
-      
+
       # Generates error messages for the given method, used for displaying errors right near the
       # field for data entry. Uses the `:inline_errors` config to determin the right presentation,
       # which may be an ordered list, a paragraph sentence containing all errors, or a paragraph
@@ -85,7 +85,7 @@ module Formtastic
         end
       end
       alias :errors_on :inline_errors_for
-      
+
 
       protected
 

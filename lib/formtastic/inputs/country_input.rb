@@ -46,7 +46,7 @@ module Formtastic
     #   </li>
     #
     # @see Formtastic::Helpers::InputsHelper#input InputsHelper#input for full documetation of all possible options.
-    class CountryInput 
+    class CountryInput
       include Base
 
       def to_html
@@ -56,7 +56,7 @@ module Formtastic
           builder.country_select(method, priority_countries, input_options, input_html_options)
         end
       end
-      
+
       def priority_countries
         options[:priority_countries] || builder.priority_countries
       end

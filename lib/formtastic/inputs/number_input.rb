@@ -6,8 +6,8 @@ module Formtastic
     # and `:decimal`, as well as `:integer` columns that aren't used for `belongs_to` associations,
     # but can be applied to any text-like input with `:as => :number`.
     #
-    # Sensible default values for the `min`, `max` and `step` attributes are found by reflecting on 
-    # the model's validations (when provided). An `IndeterminableMinimumAttributeError` exception 
+    # Sensible default values for the `min`, `max` and `step` attributes are found by reflecting on
+    # the model's validations (when provided). An `IndeterminableMinimumAttributeError` exception
     # will be raised when the following conditions are all true:
     #
     # * you haven't specified a `:min` or `:max` for the input
@@ -15,7 +15,7 @@ module Formtastic
     # * the validation uses `:less_than` or `:greater_than`
     #
     # The solution is to either:
-    # 
+    #
     # * manually specify the `:min` or `:max` for the input
     # * change the database column type to an `:integer` (if appropriate)
     # * change the validations to use `:less_than_or_equal_to` or `:greater_than_or_equal_to`
@@ -42,9 +42,9 @@ module Formtastic
     # @example Default HTML5 min/max/step attributes are detected from the numericality validations
     #
     #   class Person < ActiveRecord::Base
-    #     validates_numericality_of :age, 
-    #       :less_than_or_equal_to => 100, 
-    #       :greater_than_or_equal_to => 18, 
+    #     validates_numericality_of :age,
+    #       :less_than_or_equal_to => 100,
+    #       :greater_than_or_equal_to => 18,
     #       :only_integer => true
     #   end
     #
@@ -67,20 +67,20 @@ module Formtastic
     #
     # @see Formtastic::Helpers::InputsHelper#input InputsHelper#input for full documetation of all possible options.
     # @see http://api.rubyonrails.org/classes/ActiveModel/Validations/HelperMethods.html#method-i-validates_numericality_of Rails' Numericality validation documentation
-    class NumberInput 
+    class NumberInput
       include Base
       include Base::Stringish
-      
+
       def to_html
         input_wrapping do
           label_html <<
           builder.number_field(method, input_html_options)
         end
       end
-      
+
       def input_html_options
         defaults = super
-        
+
         if in_option
           defaults[:min] = in_option.to_a.min
           defaults[:max] = in_option.to_a.max
@@ -91,28 +91,28 @@ module Formtastic
         defaults[:step] ||= step_option
         defaults
       end
-      
+
       def step_option
         return options[:step] if options.key?(:step)
         return validation_step if validation_step
         return 1 if validation_integer_only?
         1
       end
-      
+
       def min_option
         return options[:min] if options.key?(:min)
         validation_min
       end
-      
+
       def max_option
         return options[:max] if options.key?(:max)
         validation_max
       end
-      
+
       def in_option
         options[:in]
       end
-      
+
     end
   end
 end

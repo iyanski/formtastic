@@ -12,13 +12,13 @@ module Formtastic
   autoload :Inputs
   autoload :LocalizedString
   autoload :Util
-  
+
   # @private
   class UnknownInputError < NameError
   end
-  
+
   # @private
   class PolymorphicInputWithoutCollectionError < ArgumentError
   end
-  
+
 end

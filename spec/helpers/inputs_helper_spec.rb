@@ -113,7 +113,7 @@ describe 'Formtastic::FormBuilder#inputs' do
               concat(author.input(:login))
             end
           end)
-          
+
           output_buffer.should have_tag("form fieldset.inputs", :count => 2)
           output_buffer.should have_tag("form fieldset.inputs legend", :count => 2)
           output_buffer.should have_tag("form fieldset.inputs legend", "1", :count => 1)
@@ -364,26 +364,26 @@ describe 'Formtastic::FormBuilder#inputs' do
       it 'should not render timestamps inputs by default' do
         output_buffer.should_not have_tag('form > fieldset.inputs > ol > li.datetime')
       end
-    
+
       context "with a polymorphic association" do
-        
-        before do 
+
+        before do
           @new_post.stub!(:commentable)
-          @new_post.class.stub!(:reflections).and_return({ 
+          @new_post.class.stub!(:reflections).and_return({
             :commentable => mock('macro_reflection', :options => { :polymorphic => true }, :macro => :belongs_to)
           })
           @new_post.stub!(:column_for_attribute).with(:commentable).and_return(
             mock('column', :type => :integer)
           )
         end
-        
+
         it 'should not render an input for the polymorphic association (the collection class cannot be guessed)' do
           concat(semantic_form_for(@new_post) do |builder|
             concat(builder.inputs)
           end)
           output_buffer.should_not have_tag('li#post_commentable_input')
         end
-        
+
       end
     end
 
@@ -409,12 +409,12 @@ describe 'Formtastic::FormBuilder#inputs' do
           output_buffer.should have_tag('form > fieldset.inputs > ol > li.string', :count => 2)
         end
       end
-      
+
       context "with a polymorphic association" do
-        
+
         it 'should raise an error for polymorphic associations (the collection class cannot be guessed)' do
           @new_post.stub!(:commentable)
-          @new_post.class.stub!(:reflections).and_return({ 
+          @new_post.class.stub!(:reflections).and_return({
             :commentable => mock('macro_reflection', :options => { :polymorphic => true }, :macro => :belongs_to)
           })
           @new_post.stub!(:column_for_attribute).with(:commentable).and_return(
@@ -423,16 +423,16 @@ describe 'Formtastic::FormBuilder#inputs' do
           @new_post.class.stub!(:reflect_on_association).with(:commentable).and_return(
             mock('reflection', :macro => :belongs_to, :options => { :polymorphic => true })
           )
-          
-          expect { 
+
+          expect {
             concat(semantic_form_for(@new_post) do |builder|
               concat(builder.inputs :commentable)
             end)
           }.to raise_error(Formtastic::PolymorphicInputWithoutCollectionError)
         end
-        
+
       end
-      
+
     end
 
     describe 'when a :for option is provided' do
@@ -486,7 +486,7 @@ describe 'Formtastic::FormBuilder#inputs' do
   end
 
   describe 'nesting' do
-    
+
     context "when not nested" do
       it "should not wrap the inputs in an li block" do
         concat(semantic_form_for(@new_post) do |builder|
@@ -496,7 +496,7 @@ describe 'Formtastic::FormBuilder#inputs' do
         output_buffer.should_not have_tag('form > li')
       end
     end
-    
+
     context "when nested (with block)" do
       it "should wrap the nested inputs in an li block to maintain HTML validity" do
         concat(semantic_form_for(@new_post) do |builder|
@@ -508,7 +508,7 @@ describe 'Formtastic::FormBuilder#inputs' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li > fieldset.inputs > ol')
       end
     end
-    
+
     context "when nested (with block and :for)" do
       it "should wrap the nested inputs in an li block to maintain HTML validity" do
         concat(semantic_form_for(@new_post) do |builder|
@@ -520,7 +520,7 @@ describe 'Formtastic::FormBuilder#inputs' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li > fieldset.inputs > ol')
       end
     end
-    
+
     context "when nested (without block)" do
       it "should wrap the nested inputs in an li block to maintain HTML validity" do
         concat(semantic_form_for(@new_post) do |builder|
@@ -556,7 +556,7 @@ describe 'Formtastic::FormBuilder#inputs' do
         output_buffer.should have_tag('form > fieldset.inputs > ol > li > fieldset.inputs > ol > li > fieldset.inputs > ol')
       end
     end
-    
+
   end
 
 end

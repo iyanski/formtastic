@@ -31,13 +31,13 @@ module CustomMacros
         output_buffer.should have_tag("form li fieldset")
       end
     end
-    
+
     def it_should_have_a_nested_fieldset_with_class(klass)
       it "should have a nested_fieldset with class #{klass}" do
         output_buffer.should have_tag("form li fieldset.#{klass}")
       end
     end
-    
+
     def it_should_have_a_nested_ordered_list_with_class(klass)
       it "should have a nested fieldset with class #{klass}" do
         output_buffer.should have_tag("form li ol.#{klass}")
@@ -510,7 +510,7 @@ module CustomMacros
         end
 
         describe 'when the deprecated :label_method option is provided' do
-          
+
           describe 'as a symbol' do
             before do
               with_deprecation_silenced do
@@ -528,7 +528,7 @@ module CustomMacros
           end
 
           describe 'as a proc' do
-            
+
             before do
               with_deprecation_silenced do
                 concat(semantic_form_for(@new_post) do |builder|
@@ -549,7 +549,7 @@ module CustomMacros
               def reverse_login(a)
                 a.login.reverse
               end
-              with_deprecation_silenced do 
+              with_deprecation_silenced do
                 concat(semantic_form_for(@new_post) do |builder|
                   concat(builder.input(:author, :as => as, :label_method => method(:reverse_login)))
                 end)
@@ -572,7 +572,7 @@ module CustomMacros
                 @fred.stub!(:respond_to?).and_return { |m| m.to_s == label_method || m.to_s == 'id' }
                 ::Author.all.each { |a| a.stub!(label_method).and_return('The Label Text') }
 
-                with_deprecation_silenced do 
+                with_deprecation_silenced do
                   concat(semantic_form_for(@new_post) do |builder|
                     concat(builder.input(:author, :as => as))
                   end)
@@ -593,7 +593,7 @@ module CustomMacros
 
           describe 'as a symbol' do
             before do
-              with_deprecation_silenced do 
+              with_deprecation_silenced do
                 concat(semantic_form_for(@new_post) do |builder|
                   concat(builder.input(:author, :as => as, :value_method => :login))
                 end)
@@ -609,7 +609,7 @@ module CustomMacros
 
           describe 'as a proc' do
             before do
-              with_deprecation_silenced do 
+              with_deprecation_silenced do
                 concat(semantic_form_for(@new_post) do |builder|
                   concat(builder.input(:author, :as => as, :value_method => Proc.new {|a| a.login.reverse }))
                 end)
@@ -628,7 +628,7 @@ module CustomMacros
               def reverse_login(a)
                 a.login.reverse
               end
-              with_deprecation_silenced do 
+              with_deprecation_silenced do
                 concat(semantic_form_for(@new_post) do |builder|
                   concat(builder.input(:author, :as => as, :value_method => method(:reverse_login)))
                 end)

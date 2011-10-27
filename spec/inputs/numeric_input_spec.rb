@@ -17,7 +17,7 @@ describe 'numeric input' do
       concat(builder.input(:title, :as => :numeric))
     end)
   end
-  
+
   it "should have an li.numeric" do
     with_deprecation_silenced do
       concat(semantic_form_for(@new_post) do |builder|
@@ -27,7 +27,7 @@ describe 'numeric input' do
     output_buffer.should have_tag('li.numeric')
     output_buffer.should have_tag('li.input')
   end
-  
+
   it "should warn that :numeric is deprecated in favor of :number" do
     ::ActiveSupport::Deprecation.should_receive(:warn)
     with_deprecation_silenced do

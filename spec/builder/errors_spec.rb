@@ -88,7 +88,7 @@ describe 'Formtastic::FormBuilder#errors_on' do
         builder.input :title
       end)
       output_buffer.should have_tag('p.inline-errors', @title_errors.first)
-      
+
     end
 
     it 'should render a paragraph with the first error when inline_errors config is :first with a customized error class' do
@@ -156,7 +156,7 @@ describe 'Formtastic::FormBuilder#errors_on' do
         concat(semantic_form_for(@new_post) do |builder|
           concat(builder.input(:document))
         end)
-      end 
+      end
       output_buffer.should have_tag("li.error")
       output_buffer.should have_tag('p.inline-errors', (['must be an image','must be provided', 'must be less than 4mb']).to_sentence)
     end

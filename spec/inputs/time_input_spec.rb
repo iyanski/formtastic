@@ -142,7 +142,7 @@ describe 'time input' do
       output_buffer.should have_tag('#form2_post_publish_at_5i')
     end
   end
-  
+
   describe "when required" do
     it "should add the required attribute to the input's html options" do
       concat(semantic_form_for(@new_post) do |builder|
@@ -151,5 +151,5 @@ describe 'time input' do
       output_buffer.should have_tag("select[@required]", :count => 2)
     end
   end
-  
+
 end

@@ -49,12 +49,12 @@ describe 'Formtastic::FormBuilder#fields_for' do
     end)
     output_buffer.should have_tag('form fieldset.inputs #context2_post_author_1_login_input')
   end
-  
-  context "when I rendered my own hidden id input" do 
-    
+
+  context "when I rendered my own hidden id input" do
+
     before do
       output_buffer.replace ''
-      
+
       @fred.posts.size.should == 1
       @fred.posts.first.stub!(:persisted?).and_return(true)
       @fred.stub!(:posts_attributes=)
@@ -66,11 +66,11 @@ describe 'Formtastic::FormBuilder#fields_for' do
         end)
       end)
     end
-  
+
     it "should only render one hidden input (my one)" do
       output_buffer.should have_tag 'input#author_posts_attributes_0_id', :count => 1
     end
-    
+
     it "should render the hidden input inside an li.hidden" do
       output_buffer.should have_tag 'li.hidden input#author_posts_attributes_0_id'
     end
