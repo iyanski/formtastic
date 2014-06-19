@@ -30,7 +30,7 @@ module Formtastic
     #
     # @todo document :priority_zones option
     # @todo configurable default :priority_zones?
-    class TimeZoneInput 
+    class TimeZoneInput
       include Base
 
       def to_html
@@ -39,7 +39,7 @@ module Formtastic
           builder.time_zone_select(method, priority_zones, input_options, input_html_options)
         end
       end
-      
+
       def priority_zones
         options[:priority_zones] || [] # TODO config?
       end

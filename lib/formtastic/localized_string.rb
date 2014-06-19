@@ -35,7 +35,7 @@ module Formtastic
 
         if use_i18n
           model_name, nested_model_name  = normalize_model_name(self.model_name.underscore)
-          
+
           action_name = template.params[:action].to_s rescue ''
           attribute_name = key.to_s
 
@@ -88,18 +88,18 @@ module Formtastic
         [name]
       end
     end
-    
+
     def escape_html_entities(string) #:nodoc:
-      if (respond_to?(:builder) && builder.escape_html_entities_in_hints_and_labels) || 
+      if (respond_to?(:builder) && builder.escape_html_entities_in_hints_and_labels) ||
          (self.respond_to?(:escape_html_entities_in_hints_and_labels) && escape_html_entities_in_hints_and_labels)
         string = template.escape_once(string) unless string.respond_to?(:html_safe?) && string.html_safe? == true # Acceppt html_safe flag as indicator to skip escaping
       end
       string
     end
-    
+
     def i18n_lookups_by_default
       respond_to?(:builder) ? builder.i18n_lookups_by_default : i18n_lookups_by_default
     end
-    
+
   end
 end

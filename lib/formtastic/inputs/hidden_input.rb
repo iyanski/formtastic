@@ -28,35 +28,35 @@ module Formtastic
     #   form.formtastic li.hidden { display:none; }
     #
     # @see Formtastic::Helpers::InputsHelper#input InputsHelper#input for full documetation of all possible options.
-    class HiddenInput 
+    class HiddenInput
       include Base
-      
-      # Override to include :value set directly from options hash. The :value set in :input_html 
+
+      # Override to include :value set directly from options hash. The :value set in :input_html
       # hash will be preferred over :value set directly in the options.
       #
       # @todo this is inconsistent with all other inputs, deprecate and remove
       def input_html_options
         options.slice(:value).merge(super).merge(:required => nil).merge(:autofocus => nil)
       end
-      
+
       def to_html
         input_wrapping do
           builder.hidden_field(method, input_html_options)
         end
       end
-      
+
       def error_html
         ""
       end
-      
+
       def errors?
         false
       end
-      
+
       def hint_html
         ""
       end
-      
+
       def hint?
         false
       end

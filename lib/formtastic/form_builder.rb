@@ -39,8 +39,8 @@ module Formtastic
     include Formtastic::Helpers::InputsHelper
     include Formtastic::Helpers::ButtonsHelper
     include Formtastic::Helpers::ErrorsHelper
-    
-    # This is a wrapper around Rails' `ActionView::Helpers::FormBuilder#fields_for`, originally 
+
+    # This is a wrapper around Rails' `ActionView::Helpers::FormBuilder#fields_for`, originally
     # provided to ensure that the `:builder` from `semantic_form_for` was passed down into
     # the nested `fields_for`. Rails 3 no longer requires us to do this, so this method is
     # provided purely for backwards compatibility and DSL consistency.
@@ -73,11 +73,11 @@ module Formtastic
       options = args.shift || {}
       options[:parent_builder] ||= self
       args.unshift(options)
-      
+
       # Wrap the Rails helper
       fields_for(record_or_name_or_array, *args, &block)
     end
-    
+
   end
 
 end

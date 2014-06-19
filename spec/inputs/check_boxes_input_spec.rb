@@ -69,7 +69,7 @@ describe 'check_boxes input' do
           output_buffer.should have_tag("form li fieldset ol li.post_#{post.id} label")
         end
       end
-      
+
       it "should add the required attribute to the input's html options" do
         ::Post.all.each do |post|
           output_buffer.should have_tag("form li fieldset ol li.post_#{post.id} input[@required]")
@@ -287,11 +287,11 @@ describe 'check_boxes input' do
       it "should not output the legend" do
         output_buffer.should_not have_tag("legend.label")
       end
-      
+
       it "should not cause escaped HTML" do
         output_buffer.should_not include("&gt;")
       end
-      
+
     end
 
     describe "when :required option is true" do

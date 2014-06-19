@@ -67,7 +67,7 @@ module FormtasticSpecHelper
   def active_model_inclusion_validator(attributes, options = {})
     active_model_validator(:inclusion, attributes, options)
   end
-  
+
   def active_model_numericality_validator(attributes, options = {})
     active_model_validator(:numericality, attributes, options)
   end
@@ -100,7 +100,7 @@ module FormtasticSpecHelper
 
     def to_label
     end
-    
+
     def persisted?
     end
   end
@@ -112,24 +112,24 @@ module FormtasticSpecHelper
     extend ActiveModel::Naming if defined?(ActiveModel::Naming)
     include ActiveModel::Conversion if defined?(ActiveModel::Conversion)
   end
-  
+
   def _routes
     url_helpers = mock('url_helpers')
     url_helpers.stub!(:hash_for_posts_path).and_return({})
     url_helpers.stub!(:hash_for_post_path).and_return({})
     url_helpers.stub!(:hash_for_post_models_path).and_return({})
     url_helpers.stub!(:hash_for_authors_path).and_return({})
-    
-    mock('_routes', 
+
+    mock('_routes',
       :url_helpers => url_helpers,
       :url_for => "/mock/path"
     )
   end
-    
+
   def controller
     mock('controller', :controller_path= => '', :params => {})
   end
-  
+
   def default_url_options
     {}
   end
@@ -147,7 +147,7 @@ module FormtasticSpecHelper
     def author_path(o); "/authors/1"; end
     def authors_path; "/authors"; end
     def new_author_path; "/authors/new"; end
-    
+
     @fred = ::Author.new
     @fred.stub!(:class).and_return(::Author)
     @fred.stub!(:to_label).and_return('Fred Smith')
@@ -214,7 +214,7 @@ module FormtasticSpecHelper
     @new_post.stub!(:to_key).and_return(nil)
     @new_post.stub!(:to_model).and_return(@new_post)
     @new_post.stub!(:persisted?).and_return(nil)
-    
+
     @freds_post = mock('post')
     @freds_post.stub!(:to_ary)
     @freds_post.stub!(:class).and_return(::Post)
@@ -331,11 +331,11 @@ module FormtasticSpecHelper
       def protect_against_forgery?
         false
       end
-      
+
       def _helpers
         FakeHelpersModule
       end
-      
+
     end
   end
 

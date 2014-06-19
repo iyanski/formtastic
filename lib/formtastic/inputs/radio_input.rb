@@ -122,13 +122,13 @@ module Formtastic
       include Base
       include Base::Collections
       include Base::Choices
-      
+
       def to_html
         input_wrapping do
           choices_wrapping do
             legend_html <<
             choices_group_wrapping do
-              collection.map { |choice| 
+              collection.map { |choice|
                 choice_wrapping(choice_wrapping_html_options(choice)) do
                   choice_html(choice)
                 end
@@ -138,14 +138,14 @@ module Formtastic
         end
       end
 
-      def choice_html(choice)        
+      def choice_html(choice)
         template.content_tag(:label,
-          builder.radio_button(input_name, choice_value(choice), input_html_options.merge(choice_html_options(choice))) << 
+          builder.radio_button(input_name, choice_value(choice), input_html_options.merge(choice_html_options(choice))) <<
           choice_label(choice),
           label_html_options.merge(:for => choice_input_dom_id(choice))
         )
       end
-      
+
       # Override to remove the for attribute since this isn't associated with any element, as it's
       # nested inside the legend.
       def label_html_options

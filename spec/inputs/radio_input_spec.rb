@@ -58,7 +58,7 @@ describe 'radio input' do
           output_buffer.should have_tag("form li fieldset ol li.author_#{author.id} label")
         end
       end
-      
+
       it "should add the required attribute to the input's html options" do
         ::Author.all.each do |post|
           output_buffer.should have_tag("form li fieldset ol li.author_#{post.id} input[@required]")
@@ -198,7 +198,7 @@ describe 'radio input' do
       output_buffer.should_not have_tag("legend.label")
       output_buffer.should_not include("&gt;")
     end
-    
+
     it "should not cause escaped HTML" do
       output_buffer.should_not include("&gt;")
     end

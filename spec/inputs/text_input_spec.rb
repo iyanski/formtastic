@@ -80,7 +80,7 @@ describe 'text input' do
     it_should_have_label_for("context2_post_body")
 
   end
-  
+
   context "when required" do
     it "should add the required attribute to the input's html options" do
       concat(semantic_form_for(@new_post) do |builder|

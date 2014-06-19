@@ -151,7 +151,7 @@ describe 'Formtastic::I18n' do
         output_buffer.should have_tag("form label", /Hello author name!/)
       end
     end
-    
+
     it 'should be able to translate nested forms with top level translations' do
       with_config :i18n_lookups_by_default, true do
         concat(semantic_form_for(:post) do |builder|
@@ -171,7 +171,7 @@ describe 'Formtastic::I18n' do
         output_buffer.should have_tag("form label", /Elaborate/)
       end
     end
-    
+
     it 'should be able to translate nested helper label as Rails does' do
       with_config :i18n_lookups_by_default, true do
         concat(semantic_form_for(@new_post) do |builder|

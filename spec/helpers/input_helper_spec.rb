@@ -8,18 +8,18 @@ describe 'Formtastic::FormBuilder#input' do
   before do
     @output_buffer = ''
     mock_everything
-    
+
     @errors = mock('errors')
     @errors.stub!(:[]).and_return([])
     @new_post.stub!(:errors).and_return(@errors)
   end
-  
+
   after do
     ::I18n.backend.reload!
   end
-  
+
   describe 'arguments and options' do
-  
+
     it 'should require the first argument (the method on form\'s object)' do
       lambda {
         concat(semantic_form_for(@new_post) do |builder|
@@ -31,7 +31,7 @@ describe 'Formtastic::FormBuilder#input' do
     describe ':required option' do
 
       describe 'when true' do
-        
+
         it 'should set a "required" class' do
           with_config :required_string, " required yo!" do
             concat(semantic_form_for(@new_post) do |builder|
@@ -114,21 +114,21 @@ describe 'Formtastic::FormBuilder#input' do
           before do
             @new_post.stub!(:class).and_return(::PostModel)
           end
-        
+
           after do
             @new_post.stub!(:class).and_return(::Post)
           end
           describe 'and validates_presence_of was called for the method' do
             it 'should be required' do
-        
+
               @new_post.class.should_receive(:validators_on).with(:title).any_number_of_times.and_return([
                 active_model_presence_validator([:title])
               ])
-        
+
               @new_post.class.should_receive(:validators_on).with(:body).any_number_of_times.and_return([
                 active_model_presence_validator([:body], {:if => true})
               ])
-        
+
               concat(semantic_form_for(@new_post) do |builder|
                 concat(builder.input(:title))
                 concat(builder.input(:body))
@@ -136,66 +136,66 @@ describe 'Formtastic::FormBuilder#input' do
               output_buffer.should have_tag('form li.required')
               output_buffer.should_not have_tag('form li.optional')
             end
-        
+
             it 'should be not be required if the optional :if condition is not satisifed' do
               should_be_required(:required => false, :options => { :if => false })
             end
-        
+
             it 'should not be required if the optional :if proc evaluates to false' do
               should_be_required(:required => false, :options => { :if => proc { |record| false } })
             end
-        
+
             it 'should be required if the optional :if proc evaluates to true' do
               should_be_required(:required => true, :options => { :if => proc { |record| true } })
             end
-        
+
             it 'should not be required if the optional :unless proc evaluates to true' do
               should_be_required(:required => false, :options => { :unless => proc { |record| true } })
             end
-        
+
             it 'should be required if the optional :unless proc evaluates to false' do
               should_be_required(:required => true, :options => { :unless => proc { |record| false } })
             end
-        
+
             it 'should be required if the optional :if with a method string evaluates to true' do
               @new_post.should_receive(:required_condition).and_return(true)
               should_be_required(:required => true, :options => { :if => :required_condition })
             end
-        
+
             it 'should be required if the optional :if with a method string evaluates to false' do
               @new_post.should_receive(:required_condition).and_return(false)
               should_be_required(:required => false, :options => { :if => :required_condition })
             end
-        
+
             it 'should not be required if the optional :unless with a method string evaluates to false' do
                @new_post.should_receive(:required_condition).and_return(false)
               should_be_required(:required => true, :options => { :unless => :required_condition })
             end
-        
+
              it 'should be required if the optional :unless with a method string evaluates to true' do
                @new_post.should_receive(:required_condition).and_return(true)
                should_be_required(:required => false, :options => { :unless => :required_condition })
              end
           end
-        
+
           describe 'and validates_inclusion_of was called for the method' do
             it 'should be required' do
               @new_post.class.should_receive(:validators_on).with(:published).any_number_of_times.and_return([
                 active_model_inclusion_validator([:published], {:in => [false, true]})
               ])
-        
+
               concat(semantic_form_for(@new_post) do |builder|
                 concat(builder.input(:published))
               end)
               output_buffer.should have_tag('form li.required')
               output_buffer.should_not have_tag('form li.optional')
             end
-            
+
             it 'should not be required if allow_blank is true' do
               @new_post.class.should_receive(:validators_on).with(:published).any_number_of_times.and_return([
                 active_model_inclusion_validator([:published], {:in => [false, true], :allow_blank => true})
               ])
-        
+
               concat(semantic_form_for(@new_post) do |builder|
                 concat(builder.input(:published))
               end)
@@ -203,17 +203,17 @@ describe 'Formtastic::FormBuilder#input' do
               output_buffer.should have_tag('form li.optional')
             end
           end
-        
+
           # TODO make a matcher for this?
           def should_be_required(options)
             @new_post.class.stub!(:validators_on).with(:body).and_return([
               active_model_presence_validator([:body], options[:options])
             ])
-        
+
             concat(semantic_form_for(@new_post) do |builder|
               concat(builder.input(:body))
             end)
-        
+
             if options[:required]
               output_buffer.should_not have_tag('form li.optional')
               output_buffer.should have_tag('form li.required')
@@ -222,13 +222,13 @@ describe 'Formtastic::FormBuilder#input' do
               output_buffer.should_not have_tag('form li.required')
             end
           end
-          
+
           # TODO JF reversed this during refactor, need to make sure
           describe 'and there are no requirement validations on the method' do
             before do
               @new_post.class.should_receive(:validators_on).with(:title).and_return([])
             end
-        
+
             it 'should use the default value' do
               concat(semantic_form_for(@new_post) do |builder|
                 concat(builder.input(:title))
@@ -237,9 +237,9 @@ describe 'Formtastic::FormBuilder#input' do
               output_buffer.should_not have_tag('form li.optional')
             end
           end
-        
+
         end
-        
+
         describe 'and an object without :validators_on' do
 
             it 'should use the default value' do
@@ -304,99 +304,99 @@ describe 'Formtastic::FormBuilder#input' do
           @new_post.stub!(:column_for_attribute).with(:aws_instance_id).and_return(mock('column', :type => :integer))
           default_input_type(:integer, :aws_instance_id).should == :number
         end
-        
+
         it 'should default to :select for associations' do
           @new_post.class.stub!(:reflect_on_association).with(:user_id).and_return(mock('ActiveRecord::Reflection::AssociationReflection'))
           @new_post.class.stub!(:reflect_on_association).with(:section_id).and_return(mock('ActiveRecord::Reflection::AssociationReflection'))
           default_input_type(:integer, :user_id).should == :select
           default_input_type(:integer, :section_id).should == :select
         end
-  
+
         it 'should default to :password for :string column types with "password" in the method name' do
           default_input_type(:string, :password).should == :password
           default_input_type(:string, :hashed_password).should == :password
           default_input_type(:string, :password_hash).should == :password
         end
-  
+
         it 'should default to :text for :text column types' do
           default_input_type(:text).should == :text
         end
-  
+
         it 'should default to :date for :date column types' do
           default_input_type(:date).should == :date
         end
-  
+
         it 'should default to :datetime for :datetime and :timestamp column types' do
           default_input_type(:datetime).should == :datetime
           default_input_type(:timestamp).should == :datetime
         end
-  
+
         it 'should default to :time for :time column types' do
           default_input_type(:time).should == :time
         end
-  
+
         it 'should default to :boolean for :boolean column types' do
           default_input_type(:boolean).should == :boolean
         end
-  
+
         it 'should default to :string for :string column types' do
           default_input_type(:string).should == :string
         end
-  
+
         it 'should default to :number for :integer, :float and :decimal column types' do
           default_input_type(:integer).should == :number
           default_input_type(:float).should == :number
           default_input_type(:decimal).should == :number
         end
-  
+
         it 'should default to :country for :string columns named country' do
           default_input_type(:string, :country).should == :country
         end
-  
+
         it 'should default to :email for :string columns matching email' do
           default_input_type(:string, :email).should == :email
           default_input_type(:string, :customer_email).should == :email
           default_input_type(:string, :email_work).should == :email
         end
-  
+
         it 'should default to :url for :string columns named url or website' do
           default_input_type(:string, :url).should == :url
           default_input_type(:string, :website).should == :url
           default_input_type(:string, :my_url).should == :url
           default_input_type(:string, :hurl).should_not == :url
         end
-  
+
         it 'should default to :phone for :string columns named phone or fax' do
           default_input_type(:string, :phone).should == :phone
           default_input_type(:string, :fax).should == :phone
         end
-  
+
         it 'should default to :search for :string columns named search' do
           default_input_type(:string, :search).should == :search
         end
-  
+
         describe 'defaulting to file column' do
           Formtastic::FormBuilder.file_methods.each do |method|
             it "should default to :file for attributes that respond to ##{method}" do
               @new_post.stub!(:column_for_attribute).and_return(nil)
               column = mock('column')
-  
+
               Formtastic::FormBuilder.file_methods.each do |test|
                 ### TODO: Check if this is ok
                 column.stub!(method).with(test).and_return(method == test)
               end
-  
+
               @new_post.should_receive(method).and_return(column)
-  
+
               semantic_form_for(@new_post) do |builder|
                 builder.send(:default_input_type, method).should == :file
               end
             end
           end
-  
+
         end
       end
-  
+
       it 'should call the corresponding input class with .to_html' do
         [:select, :time_zone, :radio, :date, :datetime, :time, :boolean, :check_boxes, :hidden, :string, :password, :number, :text, :file].each do |input_style|
           @new_post.stub!(:generic_column_name)
@@ -405,7 +405,7 @@ describe 'Formtastic::FormBuilder#input' do
             input_instance = mock('Input instance')
             input_class = "#{input_style.to_s}_input".classify
             input_constant = "Formtastic::Inputs::#{input_class}".constantize
-            
+
             input_constant.should_receive(:new).and_return(input_instance)
             input_instance.should_receive(:to_html).and_return("some HTML")
 
@@ -738,10 +738,10 @@ describe 'Formtastic::FormBuilder#input' do
     end
 
     describe ':collection option' do
-      
+
       it "should be required on polymorphic associations" do
         @new_post.stub!(:commentable)
-        @new_post.class.stub!(:reflections).and_return({ 
+        @new_post.class.stub!(:reflections).and_return({
           :commentable => mock('macro_reflection', :options => { :polymorphic => true }, :macro => :belongs_to)
         })
         @new_post.stub!(:column_for_attribute).with(:commentable).and_return(
@@ -750,37 +750,37 @@ describe 'Formtastic::FormBuilder#input' do
         @new_post.class.stub!(:reflect_on_association).with(:commentable).and_return(
           mock('reflection', :macro => :belongs_to, :options => { :polymorphic => true })
         )
-        expect { 
+        expect {
           concat(semantic_form_for(@new_post) do |builder|
-            concat(builder.inputs do 
+            concat(builder.inputs do
               concat(builder.input :commentable)
             end)
           end)
         }.to raise_error(Formtastic::PolymorphicInputWithoutCollectionError)
       end
-      
+
     end
 
   end
-  
+
   describe 'options re-use' do
-    
+
     it 'should retain :as option when re-using the same options hash' do
       my_options = { :as => :string }
       output = ''
-      
+
       concat(semantic_form_for(@new_post) do |builder|
         concat(builder.input(:title, my_options))
         concat(builder.input(:publish_at, my_options))
       end)
       output_buffer.should have_tag 'li.string', :count => 2
     end
-    
-    
+
+
   end
-  
+
   describe 'instantiating an input class' do
-    
+
     context 'when a class does not exist' do
       it "should raise an error" do
         lambda {
@@ -790,9 +790,9 @@ describe 'Formtastic::FormBuilder#input' do
         }.should raise_error(Formtastic::UnknownInputError)
       end
     end
-    
+
     context 'when a customized top-level class does not exist' do
-      
+
       it 'should instantiate the Formtastic input' do
         input = mock('input', :to_html => 'some HTML')
         Formtastic::Inputs::StringInput.should_receive(:new).and_return(input)
@@ -800,26 +800,26 @@ describe 'Formtastic::FormBuilder#input' do
           builder.input(:title, :as => :string)
         end)
       end
-      
+
     end
-    
+
     describe 'when a top-level input class exists' do
       it "should instantiate the top-level input instead of the Formtastic one" do
         class ::StringInput < Formtastic::Inputs::StringInput
         end
-        
+
         input = mock('input', :to_html => 'some HTML')
         Formtastic::Inputs::StringInput.should_not_receive(:new).and_return(input)
         ::StringInput.should_receive(:new).and_return(input)
-        
+
         concat(semantic_form_for(@new_post) do |builder|
           builder.input(:title, :as => :string)
         end)
       end
     end
-    
+
     describe 'when instantiated multiple times with the same input type' do
-      
+
       it "should be cached (not calling the internal methods)" do
         # TODO this is really tied to the underlying implementation
         concat(semantic_form_for(@new_post) do |builder|
@@ -828,10 +828,10 @@ describe 'Formtastic::FormBuilder#input' do
           builder.input(:title, :as => :string)
         end)
       end
-      
+
     end
-    
+
   end
-  
+
 end
 

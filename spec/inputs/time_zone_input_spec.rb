@@ -74,7 +74,7 @@ describe 'time_zone input' do
       output_buffer.should have_tag("form li select[@name=\"project[time_zone]\"]")
     end
   end
-  
+
   context "when required" do
     it "should add the required attribute to the input's html options" do
       concat(semantic_form_for(@new_post) do |builder|
@@ -83,5 +83,5 @@ describe 'time_zone input' do
       output_buffer.should have_tag("select[@required]")
     end
   end
-  
+
 end

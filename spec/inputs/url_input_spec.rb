@@ -41,7 +41,7 @@ describe 'url input' do
     it_should_have_label_and_input_with_id("context2_post_url")
 
   end
-  
+
   describe "when required" do
     it "should add the required attribute to the input's html options" do
       concat(semantic_form_for(@new_post) do |builder|
@@ -50,6 +50,6 @@ describe 'url input' do
       output_buffer.should have_tag("input[@required]")
     end
   end
-  
+
 end
 

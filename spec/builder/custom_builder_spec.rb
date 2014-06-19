@@ -7,7 +7,7 @@ describe 'Formtastic::Helpers::FormHelper.builder' do
 
   class MyCustomFormBuilder < Formtastic::FormBuilder
   end
-  
+
   # TODO should be a separate spec for custom inputs
   class Formtastic::Inputs::AwesomeInput
     include Formtastic::Inputs::Base
@@ -62,7 +62,7 @@ describe 'Formtastic::Helpers::FormHelper.builder' do
           builder.class.should.kind_of?(MyCustomFormBuilder)
         end
       end
-      
+
       # TODO should be a separate spec for custom inputs
       it "should allow me to call my custom input" do
         semantic_form_for(@new_post) do |builder|
@@ -79,7 +79,7 @@ describe 'Formtastic::Helpers::FormHelper.builder' do
         @new_post.stub!(:comment_attributes=)
         semantic_form_for(@new_post, :builder => MyCustomFormBuilder) do |builder|
           builder.class.should.kind_of?(MyCustomFormBuilder)
-          
+
           builder.fields_for(:comment) do |nested_builder|
             nested_builder.class.should.kind_of?(MyCustomFormBuilder)
           end

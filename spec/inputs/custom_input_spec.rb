@@ -12,10 +12,10 @@ module TestInputs
     @options = {}
     @proc = Proc.new {}
     @builder = Formtastic::FormBuilder.new(@object_name, @object, @template, @options, @proc)
-    
+
     [@builder, @template, @object, @object_name, @method, @options]
   end
-  
+
   class ::UnimplementedInput
     include Formtastic::Inputs::Base
   end
@@ -25,28 +25,28 @@ module TestInputs
       "some HTML output"
     end
   end
-  
+
 end
 
 describe 'AnyCustomInput' do
-  
+
   include TestInputs
-  
+
   describe "#to_html" do
 
     describe 'without an implementation' do
       it "should raise a NotImplementedError exception" do
         expect { ::UnimplementedInput.new(*input_args).to_html }.to raise_error(NotImplementedError)
       end
-    end    
+    end
 
     describe 'with an implementation' do
       it "should raise a NotImplementedError exception" do
         expect { ::ImplementedInput.new(*input_args).to_html }.to_not raise_error(NotImplementedError)
       end
     end
-    
+
   end
-    
+
 end
 

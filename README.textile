@@ -11,7 +11,7 @@ h2. Compatibility
 * Formtastic 2.0 will be Rails 3.x compatible only
 * If you're bundling Formtastic from edge/master, get ready for a bumpy ride. Try the "1.2-stable branch":https://github.com/justinfrench/formtastic/tree/1.2-stable.
 * Formtastic, much like Rails, is very ActiveRecord-centric. Many are successfully using other ActiveModel-like ORMs and objects (DataMapper, MongoMapper, Mongoid, Authlogic, Devise...) but we're not guaranteeing full compatibility at this stage. Patches are welcome!
- 
+
 
 h2. The Story
 
@@ -102,7 +102,7 @@ Simply add Formtastic to your Gemfile and bundle it up:
 Optionally, run the generator to copy some stylesheets and a configuration initializer into your application:
 
 <pre>
-  $ rails generate formtastic:install 
+  $ rails generate formtastic:install
 </pre>
 
 
@@ -326,7 +326,7 @@ Formtastic decides which label to use in the following order:
   1. :label             # :label => "Choose Title"
   2. Formtastic i18n    # if either :label => true || i18n_lookups_by_default = true (see Internationalization)
   3. Activerecord i18n  # if localization file found for the given attribute
-  4. label_str_method   # if nothing provided this defaults to :humanize but can be set to a custom method 
+  4. label_str_method   # if nothing provided this defaults to :humanize but can be set to a custom method
 </pre>
 
 h2. Internationalization (I18n)
